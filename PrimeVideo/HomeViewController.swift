@@ -245,37 +245,4 @@ extension HomeViewController {
 }
 
 
-class HomeMenuViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "backgroundColor")
-    }
-}
 
-class OriginalsMenuViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemYellow
-    }
-}
-
-class TVMenuViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemGreen
-    }
-}
-
-class MoviesMenuViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemOrange
-    }
-}
-
-class KidsMenuViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemRed
-    }
-}

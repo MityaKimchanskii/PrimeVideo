@@ -116,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.backgroundColor = .black
         
         window?.rootViewController = tabBarController
+//        window?.rootViewController = ReusableView()
         
         return true
     }
