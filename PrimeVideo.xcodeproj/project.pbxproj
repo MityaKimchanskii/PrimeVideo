@@ -19,9 +19,11 @@
 		3BB80BA628C3D0200073A435 /* TVMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BA528C3D0200073A435 /* TVMenuViewController.swift */; };
 		3BB80BA828C3D0430073A435 /* MoviesMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BA728C3D0430073A435 /* MoviesMenuViewController.swift */; };
 		3BB80BAA28C3D0630073A435 /* KidsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BA928C3D0630073A435 /* KidsMenuViewController.swift */; };
-		3BB80BAD28C3D40F0073A435 /* MovieTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BAC28C3D40F0073A435 /* MovieTopCell.swift */; };
+		3BB80BAD28C3D40F0073A435 /* MovieTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BAC28C3D40F0073A435 /* MovieTopCollectionViewCell.swift */; };
 		3BB80BB328C3D4F90073A435 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BB228C3D4F90073A435 /* Movie.swift */; };
-		3BB80BB928C3E9F20073A435 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BB828C3E9F20073A435 /* MovieCell.swift */; };
+		3BB80BB928C3E9F20073A435 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB80BB828C3E9F20073A435 /* MovieCollectionViewCell.swift */; };
+		3BC571D228C49BF60049F888 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC571D128C49BF60049F888 /* SectionHeaderView.swift */; };
+		3BC571D428C49DED0049F888 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC571D328C49DED0049F888 /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +41,11 @@
 		3BB80BA528C3D0200073A435 /* TVMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVMenuViewController.swift; sourceTree = "<group>"; };
 		3BB80BA728C3D0430073A435 /* MoviesMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesMenuViewController.swift; sourceTree = "<group>"; };
 		3BB80BA928C3D0630073A435 /* KidsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KidsMenuViewController.swift; sourceTree = "<group>"; };
-		3BB80BAC28C3D40F0073A435 /* MovieTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTopCell.swift; sourceTree = "<group>"; };
+		3BB80BAC28C3D40F0073A435 /* MovieTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTopCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BB80BB228C3D4F90073A435 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		3BB80BB828C3E9F20073A435 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		3BB80BB828C3E9F20073A435 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		3BC571D128C49BF60049F888 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		3BC571D328C49DED0049F888 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +123,10 @@
 			isa = PBXGroup;
 			children = (
 				3BB80BA128C3CFAF0073A435 /* HomeMenuViewController.swift */,
-				3BB80BAC28C3D40F0073A435 /* MovieTopCell.swift */,
-				3BB80BB828C3E9F20073A435 /* MovieCell.swift */,
+				3BB80BAC28C3D40F0073A435 /* MovieTopCollectionViewCell.swift */,
+				3BB80BB828C3E9F20073A435 /* MovieCollectionViewCell.swift */,
+				3BC571D128C49BF60049F888 /* SectionHeaderView.swift */,
+				3BC571D328C49DED0049F888 /* HomeTableViewCell.swift */,
 				3BB80BB228C3D4F90073A435 /* Movie.swift */,
 			);
 			name = HomeMenu;
@@ -228,17 +234,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BB80BB928C3E9F20073A435 /* MovieCell.swift in Sources */,
+				3BB80BB928C3E9F20073A435 /* MovieCollectionViewCell.swift in Sources */,
 				3BB5A44C28C3364A00D5DD89 /* Container.swift in Sources */,
 				3BB80BA428C3CFF40073A435 /* OriginalsMenuViewController.swift in Sources */,
 				3BB80BB328C3D4F90073A435 /* Movie.swift in Sources */,
 				3BB5A43128C32B0E00D5DD89 /* HomeViewController.swift in Sources */,
-				3BB80BAD28C3D40F0073A435 /* MovieTopCell.swift in Sources */,
+				3BB80BAD28C3D40F0073A435 /* MovieTopCollectionViewCell.swift in Sources */,
+				3BC571D428C49DED0049F888 /* HomeTableViewCell.swift in Sources */,
 				3BB80BA628C3D0200073A435 /* TVMenuViewController.swift in Sources */,
 				3BB5A44228C32C8800D5DD89 /* HeaderView.swift in Sources */,
 				3BB80BAA28C3D0630073A435 /* KidsMenuViewController.swift in Sources */,
 				3BB5A44828C32D9B00D5DD89 /* Factories.swift in Sources */,
 				3BB80BA228C3CFAF0073A435 /* HomeMenuViewController.swift in Sources */,
+				3BC571D228C49BF60049F888 /* SectionHeaderView.swift in Sources */,
 				3BB80BA828C3D0430073A435 /* MoviesMenuViewController.swift in Sources */,
 				3BB5A42D28C32B0E00D5DD89 /* AppDelegate.swift in Sources */,
 			);

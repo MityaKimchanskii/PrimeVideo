@@ -10,8 +10,16 @@ import UIKit
 
 class HomeMenuViewController: UIViewController {
     
-    let collectionReusableView = UICollectionReusableView()
+    // tableView
+    let tableView = UITableView()
+    let tableViewCellId = "tableViewCellId"
+    let headerCellId = "headerCellId"
+    
+    // collectionView
     let movieCellId = "movieCellId"
+    
+    let colors: [UIColor] = [.systemRed, .systemCyan, .blue, .green, .orange]
+
     
     lazy var topCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -20,7 +28,7 @@ class HomeMenuViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieTopCell.self, forCellWithReuseIdentifier: movieCellId)
+        cv.register(MovieTopCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
         cv.backgroundColor = UIColor(named: "backgroundColor")
         cv.isPagingEnabled = true
         cv.dataSource = self
@@ -29,9 +37,7 @@ class HomeMenuViewController: UIViewController {
         return cv
     }()
     
-    let likeTitleLabel = UILabel()
-    let likeSubtitleLabel = UILabel()
-    
+   
     lazy var likeMovieCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -39,7 +45,7 @@ class HomeMenuViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCell.self, forCellWithReuseIdentifier: movieCellId)
+        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
         cv.backgroundColor = UIColor(named: "backgroundColor")
         cv.isPagingEnabled = true
         cv.dataSource = self
@@ -48,8 +54,6 @@ class HomeMenuViewController: UIViewController {
         return cv
     }()
     
-    let originalTitleLabel = UILabel()
-    let originalSubtitleLabel = UILabel()
     
     lazy var originalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -58,7 +62,7 @@ class HomeMenuViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCell.self, forCellWithReuseIdentifier: movieCellId)
+        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
         cv.backgroundColor = UIColor(named: "backgroundColor")
         cv.isPagingEnabled = true
         cv.dataSource = self
@@ -67,9 +71,6 @@ class HomeMenuViewController: UIViewController {
         return cv
     }()
     
-    let actionTitleLabel = UILabel()
-    let actionSubtitleLabel = UILabel()
-    
     lazy var actionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -77,7 +78,23 @@ class HomeMenuViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCell.self, forCellWithReuseIdentifier: movieCellId)
+        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
+        cv.backgroundColor = UIColor(named: "backgroundColor")
+        cv.isPagingEnabled = true
+        cv.dataSource = self
+        cv.delegate = self
+        
+        return cv
+    }()
+    
+    lazy var dramaCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
         cv.backgroundColor = UIColor(named: "backgroundColor")
         cv.isPagingEnabled = true
         cv.dataSource = self
@@ -97,112 +114,23 @@ class HomeMenuViewController: UIViewController {
 // MARK: - Helper Methods
 extension HomeMenuViewController {
     func style() {
-        collectionReusableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: tableViewCellId)
+        tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: headerCellId)
+        tableView.backgroundColor = UIColor(named: "bacgroundColor")
         
-        likeSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        likeSubtitleLabel.text = "Included with Prime"
-        likeSubtitleLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        likeSubtitleLabel.textColor = UIColor(named: "amazonColor")
-        
-        likeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        likeTitleLabel.text = "Movies we think you'll like"
-        likeTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3).bold()
-        likeTitleLabel.tintColor = .white
-        
-        originalSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        originalSubtitleLabel.text = "Included with Prime"
-        originalSubtitleLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        originalSubtitleLabel.textColor = UIColor(named: "amazonColor")
-        
-        originalTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        originalTitleLabel.text = "Amazon Originals"
-        originalTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3).bold()
-        originalTitleLabel.tintColor = .white
-        
-        actionSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        actionSubtitleLabel.text = "Included with Prime"
-        actionSubtitleLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        actionSubtitleLabel.textColor = UIColor(named: "amazonColor")
-        
-        actionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        actionTitleLabel.text = "Action and adventure movies"
-        actionTitleLabel.font = UIFont.preferredFont(forTextStyle: .title3).bold()
-        actionTitleLabel.tintColor = .white
     }
     
     func layout() {
-        view.addSubview(collectionReusableView)
-        collectionReusableView.addSubview(topCollectionView)
-        collectionReusableView.addSubview(likeMovieCollectionView)
-        collectionReusableView.addSubview(originalCollectionView)
-        collectionReusableView.addSubview(actionCollectionView)
-        view.addSubview(topCollectionView)
-        view.addSubview(likeMovieCollectionView)
-        view.addSubview(originalCollectionView)
-        view.addSubview(actionCollectionView)
-        
-        collectionReusableView.addSubview(likeSubtitleLabel)
-        collectionReusableView.addSubview(likeTitleLabel)
-        
-        collectionReusableView.addSubview(originalSubtitleLabel)
-        collectionReusableView.addSubview(originalTitleLabel)
-        
-        collectionReusableView.addSubview(actionSubtitleLabel)
-        collectionReusableView.addSubview(actionTitleLabel)
-        
-        let stackView = UIStackView()
-        stackView.backgroundColor = .systemRed
-        collectionReusableView.addSubview(stackView)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            collectionReusableView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionReusableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionReusableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionReusableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            topCollectionView.topAnchor.constraint(equalTo: collectionReusableView.topAnchor),
-            topCollectionView.leadingAnchor.constraint(equalTo: collectionReusableView.leadingAnchor),
-            topCollectionView.trailingAnchor.constraint(equalTo: collectionReusableView.trailingAnchor),
-            topCollectionView.heightAnchor.constraint(equalToConstant: 170),
-            
-            likeSubtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: topCollectionView.bottomAnchor, multiplier: 2),
-            likeSubtitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            likeTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: likeSubtitleLabel.bottomAnchor, multiplier: 0),
-            likeTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            likeMovieCollectionView.topAnchor.constraint(equalToSystemSpacingBelow: likeTitleLabel.bottomAnchor, multiplier: 0),
-            likeMovieCollectionView.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            collectionReusableView.trailingAnchor.constraint(equalToSystemSpacingAfter: likeMovieCollectionView.trailingAnchor, multiplier: 0),
-            likeMovieCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            
-            originalSubtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: likeMovieCollectionView.bottomAnchor, multiplier: 2),
-            originalSubtitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            originalTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: originalSubtitleLabel.bottomAnchor, multiplier: 0),
-            originalTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            originalCollectionView.topAnchor.constraint(equalToSystemSpacingBelow: originalTitleLabel.bottomAnchor, multiplier: 0),
-            originalCollectionView.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            collectionReusableView.trailingAnchor.constraint(equalToSystemSpacingAfter: originalCollectionView.trailingAnchor, multiplier: 0),
-            originalCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            
-            actionSubtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: originalCollectionView.bottomAnchor, multiplier: 2),
-            actionSubtitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            actionTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: actionSubtitleLabel.bottomAnchor, multiplier: 0),
-            actionTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            
-            actionCollectionView.topAnchor.constraint(equalToSystemSpacingBelow: actionTitleLabel.bottomAnchor, multiplier: 0),
-            actionCollectionView.leadingAnchor.constraint(equalToSystemSpacingAfter: collectionReusableView.leadingAnchor, multiplier: 3),
-            collectionReusableView.trailingAnchor.constraint(equalToSystemSpacingAfter: actionCollectionView.trailingAnchor, multiplier: 0),
-            actionCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            
-//            stackView.topAnchor.constraint(equalToSystemSpacingBelow: actionCollectionView.bottomAnchor, multiplier: 3),
-//            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-//            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//            stackView.heightAnchor.constraint(equalToConstant: 20)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -220)
         ])
     }
 }
@@ -238,19 +166,19 @@ extension HomeMenuViewController: UICollectionViewDataSource {
         var cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath)
         
         if collectionView == topCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieTopCell
+            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieTopCollectionViewCell
             cellToReturn.movie = headerList[indexPath.item]
             cell = cellToReturn
         } else if collectionView == likeMovieCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCell
+            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
             cellToReturn.movie = movieList1[indexPath.item]
             cell = cellToReturn
         } else if collectionView == originalCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCell
+            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
             cellToReturn.movie = movieList2[indexPath.item]
             cell = cellToReturn
         } else if collectionView == actionCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCell
+            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
             cellToReturn.movie = movieList3[indexPath.item]
             cell = cellToReturn
         }
@@ -258,3 +186,72 @@ extension HomeMenuViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UITableView
+extension HomeMenuViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
+        var index = indexPath.row
+        
+        switch indexPath.section {
+        case 0:
+            index = 0
+        case 1:
+            index = 1
+        case 2:
+            index = 2
+        case 3:
+            index = 3
+        case 4:
+            index = 4
+        default:
+            break
+        }
+        
+        cell.backgroundColor = colors[index]
+        return cell
+    }
+}
+
+extension HomeMenuViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height: CGFloat = 0
+        if indexPath.section == 0 {
+            height = 170
+        } else {
+            height = 120
+        }
+        return height
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerCellId) as? SectionHeaderView
+        if section == 1 {
+            header?.configure(title: "Movies we think you'll like", subtitle: "Included with Prime")
+        } else if section == 2 {
+            header?.configure(title: "Amazon Originals", subtitle: "Included with Prime")
+        } else if section == 3 {
+            header?.configure(title: "Action and adventure movies", subtitle: "Included with Prime")
+        } else if section == 4 {
+            header?.configure(title: "Drama movies", subtitle: "Included with Prime")
+        }
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        var height: CGFloat = 0
+        if section == 0 {
+            height = 0
+        } else {
+            height = 40
+        }
+        return height
+    }
+}

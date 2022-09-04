@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MovieCell: UICollectionViewCell {
+class MovieTopCollectionViewCell: UICollectionViewCell {
     var imageView = UIImageView()
     var titleLabel = UILabel()
     var subtitleLabel = UILabel()
@@ -34,7 +34,7 @@ class MovieCell: UICollectionViewCell {
     
     func layout() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         
         NSLayoutConstraint.activate([
