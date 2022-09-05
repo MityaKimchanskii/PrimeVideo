@@ -62,8 +62,8 @@
 		3B91786328C5D275009A3A39 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				3BB80BB828C3E9F20073A435 /* MovieCollectionViewCell.swift */,
 				3BB80BAC28C3D40F0073A435 /* MovieTopCollectionViewCell.swift */,
+				3BB80BB828C3E9F20073A435 /* MovieCollectionViewCell.swift */,
 			);
 			name = CollectionViewCell;
 			sourceTree = "<group>";

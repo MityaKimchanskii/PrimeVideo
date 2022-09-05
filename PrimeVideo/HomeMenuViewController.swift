@@ -32,7 +32,7 @@ extension HomeMenuViewController {
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: tableViewCellId)
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: headerCellId)
         tableView.backgroundColor = UIColor(named: "bacgroundColor")
-        
+        tableView.separatorColor = UIColor(named: "bacgroundColor")
     }
     
     func layout() {
@@ -72,7 +72,7 @@ extension HomeMenuViewController: UITableViewDelegate {
         if indexPath.section == 0 {
             height = 170
         } else {
-            height = 120
+            height = 110
         }
         return height
     }

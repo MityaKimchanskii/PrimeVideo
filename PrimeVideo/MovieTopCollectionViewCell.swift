@@ -35,7 +35,7 @@ class MovieTopCollectionViewCell: UICollectionViewCell {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
         movieImageView.contentMode = .scaleAspectFill
         contentView.addSubview(movieImageView)
-        
+
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

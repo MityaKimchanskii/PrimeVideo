@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollectionViewCellModel {
+struct CollectionViewCellModel: Equatable {
     let movieName: String
 }
 
