@@ -15,6 +15,9 @@ class HomeMenuViewController: UIViewController {
     let tableViewCellId = "tableViewCellId"
     let headerCellId = "headerCellId"
     
+    let button = UIButton()
+    let height: CGFloat = 50
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backgroundColor")
@@ -33,16 +36,31 @@ extension HomeMenuViewController {
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: headerCellId)
         tableView.backgroundColor = UIColor(named: "bacgroundColor")
         tableView.separatorColor = UIColor(named: "bacgroundColor")
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let configuration = UIImage.SymbolConfiguration(scale: .large)
+        let image = UIImage(systemName: "dot.radiowaves.up.forward", withConfiguration: configuration)
+        button.setImage(image, for: .normal)
+        button.backgroundColor = UIColor(named: "buttonColor")
+        button.tintColor = .white
+        button.layer.cornerRadius = height/2
     }
     
     func layout() {
         view.addSubview(tableView)
+        view.addSubview(button)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -220)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -220),
+
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: button.trailingAnchor, multiplier: 2),
+//            button.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 50),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: button.bottomAnchor, multiplier: 29),
+            button.heightAnchor.constraint(equalToConstant: height),
+            button.widthAnchor.constraint(equalToConstant: height)
         ])
     }
 }

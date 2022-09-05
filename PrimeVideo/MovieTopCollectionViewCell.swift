@@ -34,6 +34,7 @@ class MovieTopCollectionViewCell: UICollectionViewCell {
     func layout() {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
         movieImageView.contentMode = .scaleAspectFill
+        
         contentView.addSubview(movieImageView)
 
         NSLayoutConstraint.activate([
