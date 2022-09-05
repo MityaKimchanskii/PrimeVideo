@@ -2,7 +2,7 @@
 
 Submitted by: **Dmityrii Kim**
 
-The following **optional** features are implemented:
+The following features are implemented:
 
 * [+] UICollectioinView
 * [+] UITableView

@@ -57,7 +57,6 @@ extension HomeMenuViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -220),
 
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: button.trailingAnchor, multiplier: 2),
-//            button.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 50),
             view.safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: button.bottomAnchor, multiplier: 29),
             button.heightAnchor.constraint(equalToConstant: height),
             button.widthAnchor.constraint(equalToConstant: height)
