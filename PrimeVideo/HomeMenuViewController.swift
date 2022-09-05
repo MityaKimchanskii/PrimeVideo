@@ -15,94 +15,6 @@ class HomeMenuViewController: UIViewController {
     let tableViewCellId = "tableViewCellId"
     let headerCellId = "headerCellId"
     
-    // collectionView
-    let movieCellId = "movieCellId"
-    
-    let colors: [UIColor] = [.systemRed, .systemCyan, .blue, .green, .orange]
-
-    
-    lazy var topCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieTopCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
-        cv.isPagingEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        
-        return cv
-    }()
-    
-   
-    lazy var likeMovieCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
-        cv.isPagingEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        
-        return cv
-    }()
-    
-    
-    lazy var originalCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
-        cv.isPagingEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        
-        return cv
-    }()
-    
-    lazy var actionCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
-        cv.isPagingEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        
-        return cv
-    }()
-    
-    lazy var dramaCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: movieCellId)
-        cv.backgroundColor = UIColor(named: "backgroundColor")
-        cv.isPagingEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        
-        return cv
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backgroundColor")
@@ -135,61 +47,10 @@ extension HomeMenuViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-extension HomeMenuViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == topCollectionView {
-            return CGSize(width: view.frame.width, height: collectionView.frame.height)
-        } else {
-            return CGSize(width: 130, height: collectionView.frame.height)
-        }
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-extension HomeMenuViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count = 0
-        if collectionView == topCollectionView {
-            count = headerList.count
-        } else if collectionView == likeMovieCollectionView {
-            count = movieList1.count
-        } else if collectionView == originalCollectionView {
-            count = movieList2.count
-        } else if collectionView == actionCollectionView {
-            count = movieList3.count
-        }
-        return count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath)
-        
-        if collectionView == topCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieTopCollectionViewCell
-            cellToReturn.movie = headerList[indexPath.item]
-            cell = cellToReturn
-        } else if collectionView == likeMovieCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
-            cellToReturn.movie = movieList1[indexPath.item]
-            cell = cellToReturn
-        } else if collectionView == originalCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
-            cellToReturn.movie = movieList2[indexPath.item]
-            cell = cellToReturn
-        } else if collectionView == actionCollectionView {
-            let cellToReturn = collectionView.dequeueReusableCell(withReuseIdentifier: movieCellId, for: indexPath) as! MovieCollectionViewCell
-            cellToReturn.movie = movieList3[indexPath.item]
-            cell = cellToReturn
-        }
-        return cell
-    }
-}
-
 // MARK: - UITableView
 extension HomeMenuViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return objectArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -198,24 +59,9 @@ extension HomeMenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
-        var index = indexPath.row
-        
-        switch indexPath.section {
-        case 0:
-            index = 0
-        case 1:
-            index = 1
-        case 2:
-            index = 2
-        case 3:
-            index = 3
-        case 4:
-            index = 4
-        default:
-            break
-        }
-        
-        cell.backgroundColor = colors[index]
+    
+        let rowArray = objectArray[indexPath.section]
+        cell.updateCellWith(row: rowArray)
         return cell
     }
 }

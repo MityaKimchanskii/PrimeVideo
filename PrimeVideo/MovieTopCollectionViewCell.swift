@@ -9,16 +9,15 @@ import Foundation
 import UIKit
 
 class MovieTopCollectionViewCell: UICollectionViewCell {
-    var imageView = UIImageView()
-    var titleLabel = UILabel()
-    var subtitleLabel = UILabel()
-
-    var movie: Movie? {
+    
+    var movieImageView = UIImageView()
+   
+    var movie: CollectionViewCellModel? {
         didSet {
             guard let track = movie else { return }
-            let image = UIImage(named: track.imageName) ?? UIImage(named: "placeholder")!
+            let image = UIImage(named: track.movieName) ?? UIImage(named: "placeholder")!
             
-            imageView.image = image
+            movieImageView.image = image
         }
     }
 
@@ -33,15 +32,15 @@ class MovieTopCollectionViewCell: UICollectionViewCell {
     }
     
     func layout() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        addSubview(imageView)
+        movieImageView.translatesAutoresizingMaskIntoConstraints = false
+        movieImageView.contentMode = .scaleAspectFill
+        contentView.addSubview(movieImageView)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            movieImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
